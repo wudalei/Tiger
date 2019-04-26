@@ -5,10 +5,12 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'swiper/dist/css/swiper.css'
+import components from './components'
 
 
 
 Vue.use(ElementUI);
+Vue.use(components);
 Vue.config.productionTip = false
 
 

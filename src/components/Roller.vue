@@ -48,7 +48,7 @@ export default {
         clickable: true,
       },
       autoplay: {
-        delay: 600,//1秒切换一次
+        delay: 1000,//1秒切换一次
       },
     });
   },
@@ -72,6 +72,7 @@ body {
   padding: 0;
 }
 .swiper-container {
+  padding: 0 10px;
   width: 200px;
   height: 350px;
   border-radius: 5px;
