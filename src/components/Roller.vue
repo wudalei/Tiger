@@ -12,10 +12,7 @@
 <script>
 import Swiper from 'swiper'
 export default {
-
-  props: {
-
-  },
+  props: ['start'],
   data () {
     return {
       sliders: [{
@@ -34,26 +31,47 @@ export default {
   computed: {
 
   },
-  mounted () {
-    new Swiper('.swiper-container', {
-      loop: true,//无限循环
-      autoplay: true,//自动循环
-      direction: 'vertical',//纵向
-      slidesPerView: 3,//最多存在几个面
-      spaceBetween: 0,//间隔
-      speed: 100,
-      centeredSlides: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      autoplay: {
-        delay: 1000,//1秒切换一次
-      },
-    });
+  watch: {
+    start: function () {
+      if (this.start == true) {
+        console.log("开始启动")
+        this.init();
+        console.log("旋转结束");
+      }
+    }
   },
   methods: {
-
+    init () {
+      var mySwiper = new Swiper('.swiper-container', {
+        loop: true,//无限循环
+        autoplay: true,//自动循环
+        direction: 'vertical',//纵向
+        slidesPerView: 3,//最多存在几个面
+        spaceBetween: 0,//间隔
+        speed: 100,
+        centeredSlides: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        autoplay: {
+          delay: 10,//1秒切换一次
+        },
+      });
+      var time1 = this.randomBoth(4000, 3000);
+      var time2 = this.randomBoth(6000, 3000);
+      var time3 = this.randomBoth(8000, 6000);
+      setTimeout(function () { mySwiper[0].autoplay.stop() }, time1)
+      setTimeout(function () { mySwiper[1].autoplay.stop() }, time2)
+      setTimeout(function () { mySwiper[2].autoplay.stop() }, time3)
+      this.$emit("start", false);
+    },
+    randomBoth (max, min) {
+      var range = max - min;
+      var rand = Math.random();
+      var num = min + Math.round(range * rand);
+      return num;
+    }
   }
 }
 </script>
@@ -72,9 +90,9 @@ body {
   padding: 0;
 }
 .swiper-container {
-  padding: 0 10px;
-  width: 200px;
-  height: 350px;
+  padding: 0 5px;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
 }
 .swiper-slide {

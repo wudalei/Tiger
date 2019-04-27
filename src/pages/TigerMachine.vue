@@ -6,13 +6,26 @@
       <div class="title">ฅ'ω'ฅ我是一台没有感情的老虎机ฅ(๑*д*๑)ฅ </div>
       <div class="select-border"></div>
       <div class="machine-box">
-        <roller></roller>
-        <roller></roller>
-        <roller></roller>
+        <div class="top-show show">
+          <div :class="['top', isUp?'up':'']"></div>
+        </div>
+        <div class="roller-box">
+          <roller :start="startRoller"
+                  @start="start"></roller>
+        </div>
+        <div class="roller-box">
+          <roller></roller>
+        </div>
+        <div class="roller-box">
+          <roller></roller>
+        </div>
+        <div class="down-show show">
+          <div :class="['down', isUp?'downMove':'']"></div>
+        </div>
       </div>
       <div class="setBtn">
         <div class="left"></div>
-        <button @click="start">start</button>
+        <button @click="startBtn">start</button>
         <div class="right"></div>
       </div>
     </div>
@@ -24,7 +37,18 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to paly TigerMachine!'
+      msg: 'Welcome to paly TigerMachine!',
+      startRoller: false,
+      isUp: false
+    }
+  },
+  methods: {
+    startBtn () {
+      this.startRoller = true;
+      this.isUp = true;
+    },
+    start (res) {
+      this.startRoller = res;
     }
   }
 }
@@ -52,18 +76,18 @@ a {
   top: 25px;
   display: flex;
   height: 355px;
-  padding: 5px;
   width: 600px;
   height: 340;
   background: #f5f5f5;
   margin: auto;
   margin-top: 10px;
   border-radius: 10px;
+  box-shadow: 7px 2px 6px #000 inset;
 }
 .select-border {
   border: 2px solid;
   position: absolute;
-  top: 403px;
+  top: 400px;
   border-color: red;
   width: 80%;
   z-index: 999;
@@ -113,5 +137,62 @@ a {
   height: 40px;
   font-size: 33px;
   line-height: 40px;
+}
+.roller-box {
+  width: 31%;
+  margin: 0 1%;
+}
+.show {
+  width: 100%;
+  height: 32%;
+  position: absolute;
+  z-index: 99;
+  overflow: hidden;
+}
+.UP {
+  height: 33%;
+  transition: all 10s;
+  -moz-transition: all 10s; /* Firefox 4 */
+  -webkit-transition: all 10s; /* Safari and Chrome */
+  -o-transition: all 10s;
+}
+.top-show {
+  transform: translateY(0px);
+  -webkit-transition: 1s all ease;
+  transition: 1s all ease;
+}
+.up {
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  filter: blur(5px);
+  opacity: 0.8;
+  -webkit-transition: 8s all ease;
+  transition: 8s all ease;
+}
+.top {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  background: #000;
+}
+.down-show {
+  top: 68%;
+  overflow: hidden;
+}
+.down {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  background: #000;
+}
+.downMove {
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+  filter: blur(5px);
+  opacity: 0.8;
+  -webkit-transition: 8s all ease;
+  transition: 8s all ease;
 }
 </style>
