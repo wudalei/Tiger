@@ -64,7 +64,7 @@ export default {
       setTimeout(function () { mySwiper[0].autoplay.stop() }, time1)
       setTimeout(function () { mySwiper[1].autoplay.stop() }, time2)
       setTimeout(function () { mySwiper[2].autoplay.stop() }, time3)
-      this.$emit("start", false);
+      this.$emit("ending", false);
     },
     randomBoth (max, min) {
       var range = max - min;

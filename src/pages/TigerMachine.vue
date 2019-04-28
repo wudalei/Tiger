@@ -11,7 +11,7 @@
         </div>
         <div class="roller-box">
           <roller :start="startRoller"
-                  @start="start"></roller>
+                  @ending="end"></roller>
         </div>
         <div class="roller-box">
           <roller></roller>
@@ -26,6 +26,7 @@
       <div class="setBtn">
         <div class="left"></div>
         <button @click="startBtn">start</button>
+        <button @click="pve">pve</button>
         <div class="right"></div>
       </div>
     </div>
@@ -44,11 +45,15 @@ export default {
   },
   methods: {
     startBtn () {
+      this.isUp = false;
       this.startRoller = true;
       this.isUp = true;
     },
-    start (res) {
-      this.startRoller = res;
+    end (val) {
+      this.startRoller = val;
+    },
+    pve () {
+      this.$router.push({ path: '/pve' });
     }
   }
 }
