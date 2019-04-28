@@ -4,7 +4,8 @@
     <div class="swiper-wrapper">
       <div class="swiper-slide"
            v-for="(item, index) in sliders"
-           :style="{backgroundImage: 'url(' + item.img + ')'}"></div>
+           :style="{backgroundImage: 'url(' + item.img + ')'}"
+           ref="slideActive"></div>
     </div>
     <!-- Add Pagination -->
   </div>
@@ -58,12 +59,21 @@ export default {
           delay: 10,//1秒切换一次
         },
       });
-      var time1 = this.randomBoth(4000, 3000);
-      var time2 = this.randomBoth(6000, 3000);
-      var time3 = this.randomBoth(8000, 6000);
-      setTimeout(function () { mySwiper[0].autoplay.stop() }, time1)
-      setTimeout(function () { mySwiper[1].autoplay.stop() }, time2)
-      setTimeout(function () { mySwiper[2].autoplay.stop() }, time3)
+      console.log("mySwiper123", mySwiper);
+      var a = this.wheel(0, 4000, 3000, mySwiper);
+      var b = this.wheel(1, 6000, 4000, mySwiper);
+      var c = this.wheel(2, 8000, 6000, mySwiper);
+      console.log("a---->", a, b, c);
+      var imgVal = setInterval(function () {
+        console.log("asafd", a, b, c);
+        if (a) {
+          console.log("asafd123213", a, b, c);
+          console.log("旋转结束1231");
+          clearInterval(imgVal);
+        }
+      }, 1000)
+
+      console.log("this.$refs", this.$refs);
       this.$emit("ending", false);
     },
     randomBoth (max, min) {
@@ -71,6 +81,20 @@ export default {
       var rand = Math.random();
       var num = min + Math.round(range * rand);
       return num;
+    },
+    wheel (index, time1, time2, mySwiper) {
+      var randomTime = this.randomBoth(time1, time2);
+      var a = false;
+      setTimeout(function () { mySwiper[index].autoplay.stop(); }, randomTime);
+      var imgVal = setInterval(function () {
+        if (a) {
+          console.log("aaa", a);
+          console.log("循环");
+          mySwiper[index].autoplay.stop();
+          clearInterval();
+        }
+      }, 1000);
+      return imgVal
     }
   }
 }

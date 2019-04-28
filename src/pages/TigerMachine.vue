@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     startBtn () {
-      this.isUp = false;
       this.startRoller = true;
       this.isUp = true;
     },
@@ -92,7 +91,7 @@ a {
 .select-border {
   border: 2px solid;
   position: absolute;
-  top: 400px;
+  top: 360px;
   border-color: red;
   width: 80%;
   z-index: 999;
